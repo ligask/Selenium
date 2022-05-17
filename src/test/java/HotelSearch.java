@@ -56,9 +56,6 @@ public class HotelSearch {
                 element.click();
                 break;
             }
-            else {
-                System.out.println("Invalid check-in date");
-            }
         }
 
         while(true) {
@@ -78,10 +75,6 @@ public class HotelSearch {
 
             if(day.equals(checkOutDay)) {
                 element.click();
-                break;
-            }
-            else {
-                System.out.println("Invalid check-out date");
                 break;
             }
         }
