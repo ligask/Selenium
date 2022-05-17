@@ -30,10 +30,10 @@ public class HotelSearch {
         //driver.findElement(By.id("ss")).sendKeys(Keys.RETURN);
         driver.findElement(By.xpath("//span[@class='search_hl_name' and text()='London']")).click();
 
-        String checkInMonth = "marzec 2023";
-        String checkOutMonth = "marzec 2023";
+        String checkInMonth = "maj 2022";
+        String checkOutMonth = "maj 2022";
         String checkInDay = "23";
-        String checkOutDay = "37";
+        String checkOutDay = "27";
 
 
         while(true) {
@@ -50,9 +50,9 @@ public class HotelSearch {
         List<WebElement> inMonth = driver.findElements(By.xpath("(//tbody)[1]//tr//td//span"));
 
         for(WebElement element:inMonth) {
-            String day = element.getText();
+            String inDay = element.getText();
 
-            if(day.equals(checkInDay)) {
+            if(inDay.equals(checkInDay)) {
                 element.click();
                 break;
             }
@@ -71,18 +71,39 @@ public class HotelSearch {
         List<WebElement> outMonth = driver.findElements(By.xpath("(//tbody)[1]//tr//td//span"));
 
         for(WebElement element:outMonth) {
-            String day = element.getText();
+            String outDay = element.getText();
 
-            if(day.equals(checkOutDay)) {
+            if(outDay.equals(checkOutDay)) {
                 element.click();
                 break;
             }
         }
 
+        int adultNumber = 4;
 
+        driver.findElement(By.id("xp__guests__toggle")).click();
+        String nbr = driver.findElement(By.className("bui-stepper__display")).getText();
+        int defaultAdultNumber = Integer.parseInt(nbr);
 
+        while(defaultAdultNumber < adultNumber) {
+            driver.findElement(By.xpath("//button[@aria-label='Dorośli: zwiększ liczbę']")).click();
+            defaultAdultNumber++;
+        }
 
+        while(defaultAdultNumber > adultNumber) {
+            driver.findElement(By.xpath("//button[@aria-label='Dorośli: zmniejsz liczbę']")).click();
+            defaultAdultNumber--;
+        }
 
+        int roomsNbr = 2;
+        int defaultRoomsNbr = 1;
+
+        while(defaultRoomsNbr < roomsNbr) {
+            driver.findElement(By.xpath("//button[@aria-label='Pokoje: zwiększ liczbę']")).click();
+            defaultRoomsNbr++;
+        }
+
+        driver.findElement(By.xpath("//span[@class='js-sb-submit-text ']")).click();
 
     }
 }
