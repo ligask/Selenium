@@ -1,5 +1,7 @@
 package com.booking.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -57,18 +59,24 @@ public class HotelSearchPage {
         PageFactory.initElements(driver, this);
     }
 
+    private static final Logger Logger = LogManager.getLogger();
+
     public void acceptAllCookies() {
         acceptCookie.click();
+        Logger.info("Accepting cookies");
     }
 
     public void setLocation(String locationName) {
+        Logger.info("Setting location name to " + locationName);
         searchHotelLocation.click();
         searchHotelLocation.sendKeys(locationName);
         hotelLocationMatch.click();
+        Logger.info("Location set");
     }
 
     public void setCheckInDate(String checkInMonth, String checkInDay) {
 
+        Logger.info("Setting checkin date to " + checkInDay + " " + checkInMonth);
         while (true) {
             String month = calendarMonth.getText();
 
@@ -90,10 +98,12 @@ public class HotelSearchPage {
                 break;
             }
         }
+        Logger.info("Checkin date set");
     }
 
     public void setCheckOutDate(String checkOutMonth, String checkOutDay) {
 
+        Logger.info("Setting checkout date to " + checkOutDay + " " + checkOutMonth);
         while (true) {
             String month = calendarMonth.getText();
 
@@ -114,10 +124,12 @@ public class HotelSearchPage {
                 break;
             }
         }
+        Logger.info("Checkout date set");
     }
 
     public void setAdultsNumber(int adultNumber) {
 
+        Logger.info("Setting the number of adults");
         guestsToggle.click();
         String nbr = stepperDisplay.getText();
         int defaultAdultNumber = Integer.parseInt(nbr);
@@ -136,6 +148,7 @@ public class HotelSearchPage {
     public void setRoomsNumber(int roomsNumber) {
         int defaultRoomsNbr = 1;
 
+        Logger.info("Setting the number of rooms");
         while (defaultRoomsNbr < roomsNumber) {
             roomPlus.click();
             defaultRoomsNbr++;
@@ -144,6 +157,7 @@ public class HotelSearchPage {
 
     public void openCalendar() {
         calendar.click();
+        Logger.info("Opening calendar");
     }
 
     public void assertIfNoLocationErrorPresent() {
@@ -152,5 +166,6 @@ public class HotelSearchPage {
 
     public void searchResults() {
         searchButton.click();
+        Logger.info("Clicking on Search button");
     }
 }
